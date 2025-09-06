@@ -794,31 +794,57 @@
         };
       }
 
+    //   // Initial data load and checks
+    //   async function checkAndLoadData() {
+    //     showLoading();
+    //     try {
+    //       await loadCourses();
+
+    //       // Check if we have any courses
+    //       if (courses.length === 0) {
+    //         showNotification(
+    //           "Please add courses before managing students",
+    //           "warning"
+    //         );
+    //         navigateToSection("courses");
+    //         openCourseModal();
+    //         return;
+    //       }
+
+    //       await Promise.all([loadStudents(), updateDashboardStats()]);
+    //     } catch (error) {
+    //       console.error("Error during initialization:", error);
+    //       showNotification("Error initializing application", "error");
+    //     } finally {
+    //       hideLoading();
+    //     }
+    //   }
+
       // Initial data load and checks
-      async function checkAndLoadData() {
-        showLoading();
-        try {
-          await loadCourses();
+async function checkAndLoadData() {
+  showLoading();
+  try {
+    await loadCourses();
 
-          // Check if we have any courses
-          if (courses.length === 0) {
-            showNotification(
-              "Please add courses before managing students",
-              "warning"
-            );
-            navigateToSection("courses");
-            openCourseModal();
-            return;
-          }
+    // Check if we have any courses
+    if (courses.length === 0) {
+      showNotification(
+        "Please add courses before managing students",
+        "warning"
+      );
+      navigateToSection("courses");
+      // Removed openCourseModal() to prevent auto-opening on refresh
+      return;
+    }
 
-          await Promise.all([loadStudents(), updateDashboardStats()]);
-        } catch (error) {
-          console.error("Error during initialization:", error);
-          showNotification("Error initializing application", "error");
-        } finally {
-          hideLoading();
-        }
-      }
+    await Promise.all([loadStudents(), updateDashboardStats()]);
+  } catch (error) {
+    console.error("Error during initialization:", error);
+    showNotification("Error initializing application", "error");
+  } finally {
+    hideLoading();
+  }
+}
 
       // Navigation functions
       function navigateToSection(section) {
